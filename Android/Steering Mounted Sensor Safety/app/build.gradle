@@ -1,0 +1,31 @@
+apply plugin: 'com.android.application'
+
+// Apply static code analysis configuration
+apply from: './checks.gradle'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+        applicationId "de.adorsys.android.smsparsertest"
+        minSdkVersion 14
+        targetSdkVersion 26
+        versionCode versionCode
+        versionName "${versionName}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:26.0.1'
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile project(path: ':smsparser')
+    implementation files('libs/okhttp-3.9.0.jar')
+}
